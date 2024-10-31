@@ -2,6 +2,13 @@ import ApiError from "../utils/errorApi.js";
 //import FederatedCredentialRepository from "../repositories/federatedCredential.repository.js";
 
 class AuthService {
+  /**
+   *
+   * @param {import('../repositories/user.repository.js').default} userRepository
+   * @param {import('../services/token.service.js').default} tokenService
+   * @param {import('../adapters/bcrypt.adapter.js').default} encryptionAdapter
+   * @param {import('google-auth-library').OAuth2Client} oAuth2Client
+   */
   constructor(userRepository, tokenService, encryptionAdapter, oAuth2Client) {
     this.userRepository = userRepository;
     //this.federatedCredentialRepository = new FederatedCredentialRepository();
