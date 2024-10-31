@@ -1,0 +1,39 @@
+openapi: 3.0.0
+info:
+  title: Pacientes API
+  version: 1.0.0
+  description: Documentacion de la API de la Pacientes
+
+paths:
+  /owners:
+    get:
+      summary: Listar owners
+      description: Lista todos los owners
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                    description: Estado de la operacion
+                    example: success
+                  data:
+                    type: object
+                    description: Datos de la operacion
+                    properties:
+                      owners:
+                        type: array
+                        description: Lista de owners
+                        items:
+                          type: object
+                          properties:
+                            id:
+                              type: string
+                              description: Identificador del owner
+                            content:
+                              type: string
+                              description: Contenido del owner
