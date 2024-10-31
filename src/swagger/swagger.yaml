@@ -2,7 +2,7 @@ openapi: 3.0.0
 info:
   title: Pacientes API
   version: 1.0.0
-  description: Documentacion de la API de la Pacientes
+  description: Documentación de la API para gestionar propietarios (owners), pacientes (patients) y tratamientos (treatments).
 
 paths:
   /owners:
@@ -19,21 +19,313 @@ paths:
                 properties:
                   status:
                     type: string
-                    description: Estado de la operacion
                     example: success
                   data:
-                    type: object
-                    description: Datos de la operacion
-                    properties:
-                      owners:
-                        type: array
-                        description: Lista de owners
-                        items:
-                          type: object
-                          properties:
-                            id:
-                              type: string
-                              description: Identificador del owner
-                            content:
-                              type: string
-                              description: Contenido del owner
+                    type: array
+                    items:
+                      $ref: "#/components/schemas/Owner"
+    post:
+      summary: Crear un nuevo owner
+      description: Crea un nuevo owner
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Owner"
+      responses:
+        "201":
+          description: Owner creado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Owner"
+
+  /owners/{ownerId}:
+    get:
+      summary: Obtener un owner por ID
+      parameters:
+        - in: path
+          name: ownerId
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Owner"
+    patch:
+      summary: Actualizar un owner
+      parameters:
+        - in: path
+          name: ownerId
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Owner"
+      responses:
+        "200":
+          description: Owner actualizado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Owner"
+    delete:
+      summary: Eliminar un owner
+      parameters:
+        - in: path
+          name: ownerId
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Owner eliminado con éxito
+
+  /patients:
+    get:
+      summary: Listar pacientes
+      description: Lista todos los pacientes
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Patient"
+    post:
+      summary: Crear un nuevo paciente
+      description: Crea un nuevo paciente
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Patient"
+      responses:
+        "201":
+          description: Paciente creado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Patient"
+
+  /patients/{patientId}:
+    get:
+      summary: Obtener un paciente por ID
+      parameters:
+        - in: path
+          name: patientId
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Patient"
+    patch:
+      summary: Actualizar un paciente
+      parameters:
+        - in: path
+          name: patientId
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Patient"
+      responses:
+        "200":
+          description: Paciente actualizado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Patient"
+    delete:
+      summary: Eliminar un paciente
+      parameters:
+        - in: path
+          name: patientId
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Paciente eliminado con éxito
+
+  /treatments:
+    get:
+      summary: Listar tratamientos
+      description: Lista todos los tratamientos
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Treatment"
+    post:
+      summary: Crear un nuevo tratamiento
+      description: Crea un nuevo tratamiento
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Treatment"
+      responses:
+        "201":
+          description: Tratamiento creado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Treatment"
+
+  /treatments/{treatmentId}:
+    get:
+      summary: Obtener un tratamiento por ID
+      parameters:
+        - in: path
+          name: treatmentId
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Treatment"
+    patch:
+      summary: Actualizar un tratamiento
+      parameters:
+        - in: path
+          name: treatmentId
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Treatment"
+      responses:
+        "200":
+          description: Tratamiento actualizado
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Treatment"
+    delete:
+      summary: Eliminar un tratamiento
+      parameters:
+        - in: path
+          name: treatmentId
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Tratamiento eliminado con éxito
+
+components:
+  schemas:
+    Owner:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Identificador del owner
+        email:
+          type: string
+          description: Correo electrónico del owner
+        name:
+          type: string
+          description: Nombre del owner
+        phone:
+          type: string
+          description: Teléfono del owner
+        created_at:
+          type: string
+          format: date-time
+          description: Fecha de creación del owner
+        updated_at:
+          type: string
+          format: date-time
+          description: Fecha de actualización del owner
+
+    Patient:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Identificador del paciente
+        name:
+          type: string
+          description: Nombre del paciente
+        type:
+          type: string
+          description: Tipo de paciente (e.g., perro, gato)
+        date_of_birth:
+          type: string
+          format: date
+          description: Fecha de nacimiento del paciente
+        owner_id:
+          type: integer
+          description: ID del owner al que pertenece el paciente
+        created_at:
+          type: string
+          format: date-time
+          description: Fecha de creación del paciente
+        updated_at:
+          type: string
+          format: date-time
+          description: Fecha de actualización del paciente
+
+    Treatment:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Identificador del tratamiento
+        description:
+          type: string
+          description: Descripción del tratamiento
+        notes:
+          type: string
+          description: Notas adicionales del tratamiento
+        price:
+          type: number
+          format: float
+          description: Precio del tratamiento
+        patient_id:
+          type: integer
+          description: ID del paciente al que pertenece el tratamiento
+        created_at:
+          type: string
+          format: date-time
+          description: Fecha de creación del tratamiento
+        updated_at:
+          type: string
+          format: date-time
+          description: Fecha de actualización del tratamiento
