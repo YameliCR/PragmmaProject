@@ -1,23 +1,13 @@
-import UserRepository from "../repositories/user.repository.js";
 import ApiError from "../utils/errorApi.js";
-import config from "../utils/config.js";
-import { OAuth2Client } from "google-auth-library";
 //import FederatedCredentialRepository from "../repositories/federatedCredential.repository.js";
-import TokenService from "./token.service.js";
-import BcryptAdapter from "../adapters/bcrypt.adapter.js";
 
 class AuthService {
-  constructor() {
-    // NOTA: Instanciar en el constructor no es buena practica!!!!!
-    this.userRepository = new UserRepository();
+  constructor(userRepository, tokenService, encryptionAdapter, oAuth2Client) {
+    this.userRepository = userRepository;
     //this.federatedCredentialRepository = new FederatedCredentialRepository();
-    this.oAuth2Client = new OAuth2Client(
-      config.google.clientId,
-      config.google.clientSecret,
-      "postmessage"
-    );
-    this.tokenService = new TokenService();
-    this.encryptionAdapter = new BcryptAdapter();
+    this.oAuth2Client = oAuth2Client;
+    this.tokenService = tokenService;
+    this.encryptionAdapter = encryptionAdapter;
   }
 
   signup = async (userBody) => {

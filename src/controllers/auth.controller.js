@@ -1,10 +1,14 @@
 import { matchedData } from "express-validator";
-import AuthService from "../services/auth.service.js";
 import { catchAsync } from "../utils/controller.js";
 
 class AuthController {
-  constructor() {
-    this.authService = new AuthService();
+  /**
+   *
+   * @param {import('../services/auth.service.js').default} authService
+   */
+
+  constructor(authService) {
+    this.authService = authService;
   }
 
   signup = catchAsync(async (req, res) => {

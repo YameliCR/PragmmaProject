@@ -5,8 +5,10 @@ import {
   loginValidation,
   signupValidation,
 } from "../validations/auth.validation.js";
+import CustomContainer from "../utils/customContainer.js";
 
-const authController = new AuthController();
+const container = CustomContainer.getInstance();
+const authController = container.get(AuthController.name);
 
 const authRouter = express.Router();
 
