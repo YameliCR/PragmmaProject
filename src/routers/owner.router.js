@@ -11,13 +11,13 @@ const ownerController = container.get(OwnerController.name);
 const ownerRouter = express.Router();
 ownerRouter
   .route("/owners")
-  .get(/* authenticate, */ ownerController.listOwners)
-  .post(validate(ownerValidation), ownerController.createOwner);
+  .get(authenticate, ownerController.listOwners)
+  .post([authenticate, validate(ownerValidation)], ownerController.createOwner);
 
 ownerRouter
   .route("/owners/:id")
-  .get(ownerController.getOwner)
-  .patch(validate(ownerValidation), ownerController.updateOwner)
-  .delete(ownerController.deleteOwner);
+  .get(authenticate, ownerController.getOwner)
+  .patch([authenticate, validate(ownerValidation)], ownerController.updateOwner)
+  .delete(authenticate, ownerController.deleteOwner);
 
 export default ownerRouter;

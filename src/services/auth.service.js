@@ -65,7 +65,7 @@ class AuthService {
     }
   };
 
-  /* login = async (authBody) => {
+  login = async (authBody) => {
     const { email, password } = authBody;
 
     // Validamos si existe el usuario
@@ -79,7 +79,7 @@ class AuthService {
     const tokens = this.tokenService.generateAuthTokens(existedUser);
 
     return tokens;
-  }; */
+  };
 
   /*  loginGoogle = async (code) => {
     // Obtener el token de google usando el code

@@ -11,13 +11,19 @@ const patientController = container.get(PatientController.name);
 const patientRouter = express.Router();
 patientRouter
   .route("/patients")
-  .get(/* authenticate, */ patientController.listPatients)
-  .post(validate(patientValidation), patientController.createPatient);
+  .get(authenticate, patientController.listPatients)
+  .post(
+    [authenticate, validate(patientValidation)],
+    patientController.createPatient
+  );
 
 patientRouter
   .route("/patients/:id")
-  .get(patientController.getPatient)
-  .patch(validate(patientValidation), patientController.updatePatient)
-  .delete(patientController.deletePatient);
+  .get(authenticate, patientController.getPatient)
+  .patch(
+    [authenticate, validate(patientValidation)],
+    patientController.updatePatient
+  )
+  .delete(authenticate, patientController.deletePatient);
 
 export default patientRouter;

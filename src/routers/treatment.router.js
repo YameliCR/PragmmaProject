@@ -11,13 +11,19 @@ const treatmentController = container.get(TreatmentController.name);
 const treatmentRouter = express.Router();
 treatmentRouter
   .route("/treatments")
-  .get(/* authenticate, */ treatmentController.listTreatments)
-  .post(validate(treatmentValidation), treatmentController.createTreatment);
+  .get(authenticate, treatmentController.listTreatments)
+  .post(
+    [authenticate, validate(treatmentValidation)],
+    treatmentController.createTreatment
+  );
 
 treatmentRouter
   .route("/treatments/:id")
-  .get(treatmentController.getTreatment)
-  .patch(validate(treatmentValidation), treatmentController.updateTreatment)
-  .delete(treatmentController.deleteTreatment);
+  .get(authenticate, treatmentController.getTreatment)
+  .patch(
+    [authenticate, validate(treatmentValidation)],
+    treatmentController.updateTreatment
+  )
+  .delete(authenticate, treatmentController.deleteTreatment);
 
 export default treatmentRouter;

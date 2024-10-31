@@ -15,7 +15,7 @@ authRouter.post(
   validate(signupValidation),
   authController.signup
 );
-/* authRouter.post('/auth/login', validate(loginValidation), authController.login);
-authRouter.post('/auth/google', authController.loginGoogle); */
+authRouter.post("/auth/login", validate(loginValidation), authController.login);
+/*authRouter.post('/auth/google', authController.loginGoogle); */
 
 export default authRouter;

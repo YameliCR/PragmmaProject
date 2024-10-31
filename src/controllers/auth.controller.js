@@ -19,18 +19,18 @@ class AuthController {
     });
   });
 
-  /* login = catchAsync(async (req, res) => {
-    const matchedBody = matchedData(req, { locations: ['body'] });
+  login = catchAsync(async (req, res) => {
+    const matchedBody = matchedData(req, { locations: ["body"] });
 
     const tokens = await this.authService.login(matchedBody);
 
     res.status(200).json({
-      status: 'success',
+      status: "success",
       data: {
         tokens,
       },
     });
-  }); */
+  });
 
   /* loginGoogle = catchAsync(async (req, res) => {
     const { code } = req.body;
